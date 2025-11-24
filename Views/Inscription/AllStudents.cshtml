@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Business_School_VF.Models.Student>
+@{
+    ViewData["Title"] = "All Students";
+    Layout = "_LayoutStudent";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4 text-warning">Registered Students</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">No students registered yet.</div>
+    }
+    else
+    {
+        <table class="table table-dark table-hover align-middle">
+            <thead class="table-dark border-bottom border-warning">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Birthday</th>
+                    <th>User</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var s in Model)
+                {
+                    <tr>
+                        <td>@s.StudentId</td>
+                        <td>@s.StudentName</td>
+                        <td>@s.Birthday.ToShortDateString()</td>
+                        <td>@s.StudentUser</td>
+                        <td class="text-center">
+                            <a asp-action="EditStudent" asp-route-id="@s.StudentId" class="btn btn-admin btn-sm me-2">Edit</a>
+                            <button class="btn btn-danger btn-sm btn-delete" data-id="@s.StudentId">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".btn-delete").forEach(btn => {
+                btn.addEventListener("click", async function () {
+                    if (!confirm("Are you sure?")) return;
+                    const id = this.getAttribute("data-id");
+                    const response = await fetch('/Inscription/DeleteStudent', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: 'id=' + encodeURIComponent(id)
+                    });
+                    const data = await response.json();
+                       if (data.success) {
+                            const row = this.closest("tr");
+                            row.style.opacity = 0;
+                            setTimeout(() => row.remove(), 300);
+                        } else {
+                            alert(data.message || "Error deleting student");
+                        }
+
+                });
+            });
+        });
+    </script>
+

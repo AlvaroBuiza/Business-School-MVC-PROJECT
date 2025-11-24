@@ -1,0 +1,39 @@
+﻿@using Business_School_VF.ViewModel
+@model ClubCreateClubViewModel
+@{
+    ViewData["Title"] = "Create Club";
+    Layout = "_LayoutClub";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-warning mb-4">Create New Club</h2>
+
+    <div class="card shadow-lg bg-dark text-light">
+        <div class="card-header border-bottom border-warning">
+            <h5 class="text-warning">Club Information</h5>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Club" asp-action="CreateClub" method="post">
+                <div class="mb-3">
+                    <label asp-for="Club.ClubName" class="form-label text-light"></label>
+                    <input asp-for="Club.ClubName" class="form-control bg-dark text-light border-warning"
+                           placeholder="Enter club name" required />
+                    <span asp-validation-for="Club.ClubName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.DepartmentId" class="form-label text-light">Department</label>
+                    <select asp-for="@Model.DepartmentId" asp-items="Model.DepartamentList"
+                            class="form-select bg-dark text-light border-warning" required>
+                        <option value="">-- Select Department --</option>
+                    </select>
+                    <span asp-validation-for="@Model.DepartmentId" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-admin w-100">Create Club</button>
+                
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+   
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand text-warning fw-bold" asp-controller="Home" asp-action="Index">Business School</a>
+
+            <div class="collapse navbar-collapse" id="navbarClub">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Club" asp-action="AllClubs">View Clubs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Club" asp-action="CreateClub">Register</a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    
+
+  

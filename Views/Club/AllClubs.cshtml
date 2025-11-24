@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Business_School_VF.Models.Club>
+@{
+    ViewData["Title"] = "All Clubs";
+    Layout = "_LayoutClub";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4 text-warning">Registered Clubs</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            <strong>No clubs registered yet.</strong>
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-lg bg-dark text-light">
+            <div class="card-header bg-dark border-bottom border-warning">
+                <h5 class="mb-0 text-warning">Clubs List</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-dark table-hover align-middle">
+                    <thead class="table-dark border-bottom border-warning">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var club in Model)
+                        {
+                            <tr>
+                                <td>@club.ClubId</td>
+                                <td>@club.ClubName</td>
+                                <td>@club.Departament?.DepartamentName</td>
+                                <td class="text-center">
+                                    <a asp-action="EditClub" asp-route-id="@club.ClubId"
+                                       class="btn btn-admin btn-sm me-2">
+                                        <i class="bi bi-pencil-square"></i> Edit
+                                    </a>
+                                    <button class="btn btn-danger btn-sm btn-delete" data-id="@club.ClubId">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".btn-delete").forEach(btn => {
+            btn.addEventListener("click", async (e) => {
+                e.preventDefault();
+                const id = btn.getAttribute("data-id");
+                if (!id) { alert("Id no encontrado"); return; }
+                if (!confirm("¿Seguro que quieres eliminar?")) return;
+
+                try {
+                    const response = await fetch('/Club/DeleteClub', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: 'id=' + encodeURIComponent(id)
+                    });
+
+                    if (response.status === 401 || response.status === 403) {
+                        alert("No autorizado. Revisa tu rol.");
+                        return;
+                    }
+
+                    const ct = response.headers.get('content-type') || "";
+                    if (!ct.includes('application/json')) {
+                        alert("Respuesta inesperada (no JSON). Probable redirección.");
+                        return;
+                    }
+
+                    const data = await response.json();
+                    if (data.success) {
+                        const row = btn.closest("tr");
+                        if (row) {
+                            row.style.transition = "opacity 0.3s";
+                            row.style.opacity = 0;
+                            setTimeout(() => row.remove(), 300);
+                        }
+                    } else {
+                        alert(data.message || "Error al eliminar el club.");
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Error en la petición AJAX.");
+                }
+            });
+        });
+    });
+</script>

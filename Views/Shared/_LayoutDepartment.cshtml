@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand text-warning fw-bold" asp-controller="Home" asp-action="Index">Business School</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDepartment"
+                    aria-controls="navbarDepartment" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarDepartment">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Department" asp-action="AllDepartments">View Departments</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Department" asp-action="CreateDepartment">Register Department</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+   
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+   
+
+    
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+
+

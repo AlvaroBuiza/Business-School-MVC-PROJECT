@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Business_School_VF.Models.Inscription>
+@{
+    ViewData["Title"] = "My Inscriptions";
+    Layout = "_LayoutStudent";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4 text-warning">My Club Inscriptions</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">You are not registered in any club yet.</div>
+    }
+    else
+    {
+        <table class="table table-dark table-hover align-middle">
+            <thead class="table-dark border-bottom border-warning">
+                <tr>
+                    <th>Club</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ins in Model)
+                {
+                    <tr>
+                        <td>@ins.Club?.ClubName</td>
+                        <td class="text-center">
+                            <button class="btn btn-danger btn-sm btn-delete" data-id="@ins.InscriptionId">
+                                <i class="bi bi-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll(".btn-delete").forEach(btn => {
+                btn.addEventListener("click", async function () {
+                    if (!confirm("Are you sure you want to delete this inscription?")) return;
+
+                    const id = this.getAttribute("data-id");
+
+                    try {
+                        const response = await fetch('/Inscription/DeleteInscription', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                            body: 'id=' + encodeURIComponent(id)
+                        });
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            const row = this.closest("tr");
+                            row.style.transition = "opacity 0.3s";
+                            row.style.opacity = 0;
+                            setTimeout(() => row.remove(), 300);
+                        } else {
+                            alert("Error deleting inscription");
+                        }
+                    } catch (error) {
+                        alert("AJAX error");
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+

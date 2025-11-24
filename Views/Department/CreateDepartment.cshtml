@@ -1,0 +1,51 @@
+﻿@model Business_School_VF.Models.Departament
+@{
+    ViewData["Title"] = "Create Department";
+    Layout = "_LayoutDepartment";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-warning mb-4">Create New Department</h2>
+
+    <div class="card shadow-lg bg-dark text-light">
+        <div class="card-header border-bottom border-warning">
+            <h5 class="text-warning">Department Information</h5>
+        </div>
+        <div class="card-body">
+            <form asp-controller="Department" asp-action="CreateDepartment" method="post">
+                <div class="mb-3">
+                    <label asp-for="DepartamentName" class="form-label text-light"></label>
+                    <input asp-for="DepartamentName" class="form-control bg-dark text-light border-warning"
+                           placeholder="Enter department name" required />
+                    <span asp-validation-for="DepartamentName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Phone_Number" class="form-label text-light"></label>
+                    <input asp-for="Phone_Number" class="form-control bg-dark text-light border-warning"
+                           placeholder="Enter phone number" required />
+                    <span asp-validation-for="Phone_Number" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label text-light"></label>
+                    <input asp-for="Email" type="email" class="form-control bg-dark text-light border-warning"
+                           placeholder="Enter email" required />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Office_Location" class="form-label text-light"></label>
+                    <input asp-for="Office_Location" class="form-control bg-dark text-light border-warning"
+                           placeholder="Enter office location" required />
+                    <span asp-validation-for="Office_Location" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-admin w-100">Create Department</button>
+                <a asp-action="AllDepartments" class="btn btn-secondary w-100 mt-2">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+

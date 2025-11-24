@@ -1,5 +1,3 @@
-# Business School VF
-
 # 🎓 Business School Management System
 
 A comprehensive school management system built using the MVC (Model-View-Controller) architectural pattern. This application provides a robust platform for managing educational institutions, including student enrollment, course management, instructor administration, and academic performance tracking.
@@ -78,40 +76,40 @@ Before you begin, ensure you have the following installed:
 ## 🚀 Installation
 
 1. **Clone the repository**
-   ```bash
+```bash
    git clone https://github.com/AlvaroBuiza/Business-School-MVC-PROJECT.git
    cd Business-School-MVC-PROJECT
-   ```
+```
 
 2. **Restore dependencies**
-   ```bash
+```bash
    dotnet restore
    # or
    npm install
-   ```
+```
 
 3. **Update connection string**
    
    Open `appsettings.json` (or `web.config`) and update the database connection string:
-   ```json
+```json
    "ConnectionStrings": {
      "DefaultConnection": "Server=YOUR_SERVER;Database=BusinessSchoolDB;Trusted_Connection=True;"
    }
-   ```
+```
 
 ## 🗄️ Database Setup
 
 1. **Run migrations to create the database**
-   ```bash
+```bash
    dotnet ef database update
    # or
    Update-Database
-   ```
+```
 
 2. **Seed initial data** (if available)
-   ```bash
+```bash
    dotnet run --seed
-   ```
+```
 
 The database will be created with the following tables:
 - Users
@@ -125,19 +123,19 @@ The database will be created with the following tables:
 ## 💻 Usage
 
 1. **Run the application**
-   ```bash
+```bash
    dotnet run
    # or press F5 in Visual Studio
-   ```
+```
 
 2. **Access the application**
    
    Open your browser and navigate to:
-   ```
+```
    http://localhost:5000
    # or
    https://localhost:5001
-   ```
+```
 
 3. **Default login credentials**
    
@@ -156,7 +154,6 @@ The database will be created with the following tables:
    **⚠️ Important**: Change these default credentials after first login!
 
 ## 📁 Project Structure
-
 ```
 Business-School-MVC-PROJECT/
 │

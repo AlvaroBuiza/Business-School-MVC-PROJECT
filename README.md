@@ -1,8 +1,8 @@
-# 🎓 Business School Management System
+# Business School Management System
 
 A comprehensive school management system built using the MVC (Model-View-Controller) architectural pattern. This application provides a robust platform for managing educational institutions, including student enrollment, course management, instructor administration, and academic performance tracking.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
@@ -14,7 +14,7 @@ A comprehensive school management system built using the MVC (Model-View-Control
 - [Contributing](#contributing)
 - [License](#license)
 
-## ✨ Features
+## Features
 
 ### Student Management
 - Student registration and profile management
@@ -64,7 +64,7 @@ A comprehensive school management system built using the MVC (Model-View-Control
   - DataTables (for advanced table features)
   - Font Awesome (icons)
 
-## 📦 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -73,7 +73,7 @@ Before you begin, ensure you have the following installed:
 - [Visual Studio](https://visualstudio.microsoft.com/) or [Visual Studio Code](https://code.visualstudio.com/)
 - [Node.js and npm](https://nodejs.org/) (for frontend dependencies)
 
-## 🚀 Installation
+## Installation
 
 1. **Clone the repository**
 ```bash
@@ -97,7 +97,7 @@ Before you begin, ensure you have the following installed:
    }
 ```
 
-## 🗄️ Database Setup
+## Database Setup
 
 1. **Run migrations to create the database**
 ```bash
@@ -151,9 +151,9 @@ The database will be created with the following tables:
    - Username: `student@businessschool.com`
    - Password: `Student@123`
 
-   **⚠️ Important**: Change these default credentials after first login!
+   ** Important**: Change these default credentials after first login!
 
-## 📁 Project Structure
+## Project Structure
 ```
 Business-School-MVC-PROJECT/
 │
@@ -200,7 +200,7 @@ Business-School-MVC-PROJECT/
 └── Startup.cs                # Application startup configuration
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -218,30 +218,14 @@ Contributions are welcome! Please follow these steps:
 - Update documentation as needed
 - Write unit tests for new features
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Author
+## Author
 
 **Alvaro Buiza**
 
 - GitHub: [@AlvaroBuiza](https://github.com/AlvaroBuiza)
 - Project Link: [Business School MVC Project](https://github.com/AlvaroBuiza/Business-School-MVC-PROJECT)
 
-## 🙏 Acknowledgments
-
-- Thanks to all contributors who have helped with this project
-- Inspired by modern educational management systems
-- Built with best practices in MVC architecture
-
-## 📞 Support
-
-If you have any questions or need help with the project:
-
-- Open an issue in the GitHub repository
-- Contact the maintainer through GitHub
-
----
-
-⭐ If you find this project useful, please consider giving it a star on GitHub!

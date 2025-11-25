@@ -4,11 +4,8 @@ namespace Business_School_VF.ViewModel
 {
     public class PersonAndStudentViewModel
     {
-
-        
-        public Person Person { get; set; } = new Person();
-        public Student Student { get; set; } = new Student();
-
-
+        public Person DepartmentManager { get; set; } = new();
+        public Person ClubLeader { get; set; } = new();
+        public Student Student { get; set; } = new();
     }
 }

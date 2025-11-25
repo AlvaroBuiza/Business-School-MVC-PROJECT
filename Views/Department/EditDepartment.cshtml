@@ -12,35 +12,39 @@
             <h5 class="text-warning">Update Department Information</h5>
         </div>
         <div class="card-body">
-            <form asp-controller="Department" asp-action="EditDepartment" method="post">
+            <form asp-controller="Department" asp-action="EditDepartment" method="post" id="DepartmentForm" novalidate>
                 <input type="hidden" asp-for="DepartamentId" />
 
                 <div class="mb-3">
                     <label asp-for="DepartamentName" class="form-label text-light"></label>
                     <input asp-for="DepartamentName" class="form-control bg-dark text-light border-warning"
-                           placeholder="Enter department name" required />
+                           placeholder="Enter department name" />
                     <span asp-validation-for="DepartamentName" class="text-danger"></span>
+                    <div class="invalid-feedback" data-valmsg-for="DepartamentName"></div>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Phone_Number" class="form-label text-light"></label>
                     <input asp-for="Phone_Number" class="form-control bg-dark text-light border-warning"
-                           placeholder="Enter phone number" required />
+                           placeholder="Enter phone number" />
                     <span asp-validation-for="Phone_Number" class="text-danger"></span>
+                    <div class="invalid-feedback" data-valmsg-for="Phone_Number"></div>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Email" class="form-label text-light"></label>
                     <input asp-for="Email" type="email" class="form-control bg-dark text-light border-warning"
-                           placeholder="Enter email" required />
+                           placeholder="Enter email" />
                     <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="invalid-feedback" data-valmsg-for="Email"></div>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Office_Location" class="form-label text-light"></label>
                     <input asp-for="Office_Location" class="form-control bg-dark text-light border-warning"
-                           placeholder="Enter office location" required />
+                           placeholder="Enter office location" />
                     <span asp-validation-for="Office_Location" class="text-danger"></span>
+                    <div class="invalid-feedback" data-valmsg-for="Office_Location"></div>
                 </div>
 
                 <button type="submit" class="btn btn-admin w-100">Save Changes</button>
@@ -50,4 +54,7 @@
     </div>
 </div>
 
+
+    
+    <script src="~/js/DepartmentValidations.js"></script>
 

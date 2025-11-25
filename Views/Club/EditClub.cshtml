@@ -1,7 +1,4 @@
-﻿@using Business_School_VF.ViewModel
-@model ClubCreateClubViewModel
-
-
+﻿@model Business_School_VF.ViewModel.ClubCreateClubViewModel
 @{
     ViewData["Title"] = "Edit Club";
     Layout = "_LayoutClub";
@@ -15,24 +12,25 @@
             <h5 class="text-warning">Update Club Information</h5>
         </div>
         <div class="card-body">
-            <form asp-controller="Club" asp-action="EditClub" method="post">
-                
-                <input type="hidden" asp-for="Club.ClubId" />
+            <form asp-controller="Club" asp-action="EditClub" method="post" id="ClubForm" novalidate>
+                <input type="hidden" asp-for="ClubId" />
 
                 <div class="mb-3">
-                    <label asp-for="Club.ClubName" class="form-label text-light"></label>
-                    <input asp-for="Club.ClubName" class="form-control bg-dark text-light border-warning"
-                           placeholder="Enter club name" required />
-                    <span asp-validation-for="Club.ClubName" class="text-danger"></span>
+                    <label asp-for="ClubName" class="form-label text-light"></label>
+                    <input asp-for="ClubName" class="form-control bg-dark text-light border-warning"
+                           placeholder="Enter club name" />
+                    <span asp-validation-for="ClubName" class="text-danger"></span>
+                    <div class="invalid-feedback" data-valmsg-for="ClubName"></div>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Club.DepartamentId" class="form-label text-light">Department</label>
-                    <select asp-for="Club.DepartamentId" asp-items="Model.DepartamentList"
-                            class="form-select bg-dark text-light border-warning" required>
+                    <label asp-for="DepartmentId" class="form-label text-light">Department</label>
+                    <select asp-for="DepartmentId" asp-items="Model.DepartamentList"
+                            class="form-select bg-dark text-light border-warning">
                         <option value="">-- Select Department --</option>
                     </select>
-                    <span asp-validation-for="Club.DepartamentId" class="text-danger"></span>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                    <div class="invalid-feedback" data-valmsg-for="DepartmentId"></div>
                 </div>
 
                 <button type="submit" class="btn btn-admin w-100">Save Changes</button>
@@ -42,4 +40,7 @@
     </div>
 </div>
 
+
+   
+    <script src="~/js/ClubValidations.js"></script>
 

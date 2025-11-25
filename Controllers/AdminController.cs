@@ -1,5 +1,4 @@
-﻿
-using Business_School_VF.Data;
+﻿using Business_School_VF.Data;
 using Business_School_VF.Models;
 using Business_School_VF.Models.ViewModels;
 using Business_School_VF.ViewModel;
@@ -29,43 +28,67 @@ public class AdminController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateDepartmentManager(PersonAndStudentViewModel vm)
     {
-        var p = vm.Person;
+        var p = vm.DepartmentManager;
+        ModelState.Clear();
+
+        
+        TryValidateModel(p, nameof(vm.DepartmentManager));
+
+        if (!ModelState.IsValid)
+        {
+           
+            return View("Index", vm);
+        }
+
         var user = await _userManager.FindByEmailAsync(p.PersonUser);
         if (user == null)
-        {   
-           
-            var userAregistrar = new IdentityUser()
+        {
+            var userAregistrar = new IdentityUser
             {
                 UserName = p.PersonUser,
                 Email = p.PersonUser,
-                EmailConfirmed  = true
+                EmailConfirmed = true
             };
-            
+
             var result = await _userManager.CreateAsync(userAregistrar, passDefault);
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(userAregistrar, "DepartamentManager");
                 _db.Add(p);
                 await _db.SaveChangesAsync();
-                ViewBag.Message = "Registered successfully";
+                ViewBag.Message = "Department Manager registered successfully";
             }
             else
             {
-                ViewBag.Message = "An error occurred";
+                ViewBag.Message = "An error occurred while registering Manager";
             }
         }
         return View("Index");
     }
 
+    
     [HttpPost]
     public async Task<IActionResult> CreateClubLeader(PersonAndStudentViewModel vm)
     {
-        var p = vm.Person;
+        var p = vm.ClubLeader;
+        ModelState.Clear();
+
+
+        TryValidateModel(p, nameof(vm.DepartmentManager));
+
+        if (!ModelState.IsValid)
+        {
+
+            return View("Index", vm);
+        }
+
+
+        
+
         var user = await _userManager.FindByEmailAsync(p.PersonUser);
         if (user == null)
         {
-
-            var userAregistrar = new IdentityUser()
+            var userAregistrar = new IdentityUser
             {
                 UserName = p.PersonUser,
                 Email = p.PersonUser,
@@ -78,25 +101,36 @@ public class AdminController : Controller
                 await _userManager.AddToRoleAsync(userAregistrar, "ClubLeader");
                 _db.Add(p);
                 await _db.SaveChangesAsync();
-                ViewBag.Message = "Registered successfully";
+                ViewBag.Message = "Club Leader registered successfully";
             }
             else
             {
-                ViewBag.Message = "An error occurred";
+                ViewBag.Message = "An error occurred while registering Leader";
             }
         }
         return View("Index");
     }
 
+    
     [HttpPost]
     public async Task<IActionResult> CreateStudent(PersonAndStudentViewModel vm)
     {
         var p = vm.Student;
+        ModelState.Clear();
+
+
+        TryValidateModel(p, nameof(vm.DepartmentManager));
+
+        if (!ModelState.IsValid)
+        {
+
+            return View("Index", vm);
+        }
+
         var user = await _userManager.FindByEmailAsync(p.StudentUser);
         if (user == null)
         {
-
-            var userAregistrar = new IdentityUser()
+            var userAregistrar = new IdentityUser
             {
                 UserName = p.StudentUser,
                 Email = p.StudentUser,
@@ -109,17 +143,17 @@ public class AdminController : Controller
                 await _userManager.AddToRoleAsync(userAregistrar, "Student");
                 _db.Add(p);
                 await _db.SaveChangesAsync();
-                ViewBag.Message = "Registered successfully";
+                ViewBag.Message = "Student registered successfully";
             }
             else
             {
-                ViewBag.Message = "An error occurred";
+                ViewBag.Message = "An error occurred while registering Student";
             }
         }
-
         return View("Index");
     }
 
+    
     [HttpPost]
     public async Task<IActionResult> DeletePerson(int id)
     {
@@ -127,7 +161,6 @@ public class AdminController : Controller
         if (person == null) return Json(new { success = false, message = "Person not found" });
 
         var user = await _userManager.FindByEmailAsync(person.PersonUser);
-
         if (user != null)
         {
             var result = await _userManager.DeleteAsync(user);
@@ -140,10 +173,10 @@ public class AdminController : Controller
         _db.Person.Remove(person);
         await _db.SaveChangesAsync();
 
-        return Json(new { success = true, id = id });
+        return Json(new { success = true, id });
     }
 
-
+   
     public async Task<IActionResult> AllPersons()
     {
         var persons = await _db.Person.ToListAsync();
@@ -163,32 +196,23 @@ public class AdminController : Controller
         return View(vmList);
     }
 
+    
     [HttpGet]
     public async Task<IActionResult> EditPerson(int id)
     {
         var person = await _db.Person.FindAsync(id);
-        if (person == null)
-        {
-            return NotFound();
-        }
+        if (person == null) return NotFound();
         return View(person);
     }
 
     [HttpPost]
     public async Task<IActionResult> EditPerson(Person person)
     {
-        if (!ModelState.IsValid)
-        {
-            return View(person);
-        }
+        if (!ModelState.IsValid) return View(person);
 
         var existingPerson = await _db.Person.FindAsync(person.PersonId);
-        if (existingPerson == null)
-        {
-            return NotFound();
-        }
+        if (existingPerson == null) return NotFound();
 
-        
         existingPerson.PersonName = person.PersonName;
         existingPerson.Birthday = person.Birthday;
         existingPerson.PersonUser = person.PersonUser;
@@ -199,6 +223,4 @@ public class AdminController : Controller
         TempData["Message"] = "Person updated successfully";
         return RedirectToAction("AllPersons");
     }
-
-
 }

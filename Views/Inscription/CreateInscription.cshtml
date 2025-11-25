@@ -12,7 +12,7 @@
             <h5 class="text-warning">Inscription Information</h5>
         </div>
         <div class="card-body">
-            <form asp-controller="Inscription" asp-action="CreateInscription" method="post">
+            <form asp-controller="Inscription" asp-action="CreateInscription" method="post" id="InscriptionForm" novalidate>
                 <input type="hidden" asp-for="StudentId" />
 
                 <div class="mb-3">
@@ -24,10 +24,11 @@
                 <div class="mb-3">
                     <label asp-for="ClubId" class="form-label text-light">Club</label>
                     <select asp-for="ClubId" asp-items="Model.Clubs"
-                            class="form-select bg-dark text-light border-warning" required>
+                            class="form-select bg-dark text-light border-warning">
                         <option value="">-- Select Club --</option>
                     </select>
                     <span asp-validation-for="ClubId" class="text-danger"></span>
+                    <div class="invalid-feedback" data-valmsg-for="ClubId"></div>
                 </div>
 
                 <button type="submit" class="btn btn-admin w-100">Register</button>
@@ -37,4 +38,6 @@
     </div>
 </div>
 
+
+    <script src="~/js/InscriptionValidations.js"></script>
 

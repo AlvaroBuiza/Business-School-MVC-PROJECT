@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Business_School_VF.Data;
+﻿using Business_School_VF.Data;
 using Business_School_VF.Models;
 using Business_School_VF.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +12,9 @@ namespace Business_School_VF.Controllers
     [Authorize(Roles = "Admin,ClubLeader")]
     public class ClubController : Controller
     {
-        
-
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
-        public ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
 
         public ClubController(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager, ApplicationDbContext db)
         {
@@ -34,15 +31,11 @@ namespace Business_School_VF.Controllers
 
         public async Task<IActionResult> CreateClub()
         {
+            var departments = await _db.Departaments
+                .Select(d => new { Id = d.DepartamentId, Value = d.DepartamentName })
+                .ToListAsync();
 
-            var departments = await _db.Departaments.Select(d => new
-            {
-                Id = d.DepartamentId,
-                Value = d.DepartamentName
-
-            }).ToListAsync();
-
-            ClubCreateClubViewModel vm = new ClubCreateClubViewModel()
+            var vm = new ClubCreateClubViewModel
             {
                 DepartamentList = new SelectList(departments, "Id", "Value")
             };
@@ -53,19 +46,26 @@ namespace Business_School_VF.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateClub(ClubCreateClubViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                var departments = await _db.Departaments
+                    .Select(d => new { Id = d.DepartamentId, Value = d.DepartamentName })
+                    .ToListAsync();
 
+                vm.DepartamentList = new SelectList(departments, "Id", "Value");
+                return View(vm);
+            }
 
-            Club c = new Club() { 
-                ClubName = vm!.Club!.ClubName,
-                DepartamentId = vm.DepartmentId
+            var club = new Club
+            {
+                ClubName = vm.ClubName!,
+                DepartamentId = vm.DepartmentId!.Value
             };
 
-            _db.Add(c);
+            _db.Clubs.Add(club);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("AllClubs");  
-
-           
+            return RedirectToAction(nameof(AllClubs));
         }
 
         public async Task<IActionResult> EditClub(int id)
@@ -73,17 +73,16 @@ namespace Business_School_VF.Controllers
             var club = await _db.Clubs.FindAsync(id);
             if (club == null) return NotFound();
 
-            var departments = await _db.Departaments.Select(d => new
-            {
-                Id = d.DepartamentId,
-                Value = d.DepartamentName
+            var departments = await _db.Departaments
+                .Select(d => new { Id = d.DepartamentId, Value = d.DepartamentName })
+                .ToListAsync();
 
-            }).ToListAsync();
-
-            ClubCreateClubViewModel vm = new ClubCreateClubViewModel()
+            var vm = new ClubCreateClubViewModel
             {
-                Club = club,
-                DepartamentList = new SelectList(departments, "Id", "Value")
+                ClubId = club.ClubId,
+                ClubName = club.ClubName,
+                DepartmentId = club.DepartamentId,
+                DepartamentList = new SelectList(departments, "Id", "Value", club.DepartamentId)
             };
 
             return View(vm);
@@ -92,14 +91,26 @@ namespace Business_School_VF.Controllers
         [HttpPost]
         public async Task<IActionResult> EditClub(ClubCreateClubViewModel vm)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _db.Update(vm.Club);
-                await _db.SaveChangesAsync();
-                return RedirectToAction("AllClubs");
+                var departments = await _db.Departaments
+                    .Select(d => new { Id = d.DepartamentId, Value = d.DepartamentName })
+                    .ToListAsync();
+
+                vm.DepartamentList = new SelectList(departments, "Id", "Value", vm.DepartmentId);
+                return View(vm);
             }
-            
-            return RedirectToAction("AllClubs");
+
+            var club = await _db.Clubs.FindAsync(vm.ClubId);
+            if (club == null) return NotFound();
+
+            club.ClubName = vm.ClubName!;
+            club.DepartamentId = vm.DepartmentId!.Value;
+
+            _db.Clubs.Update(club);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(AllClubs));
         }
 
         [HttpPost]
@@ -113,6 +124,5 @@ namespace Business_School_VF.Controllers
             await _db.SaveChangesAsync();
             return Json(new { success = true, id });
         }
-
     }
 }

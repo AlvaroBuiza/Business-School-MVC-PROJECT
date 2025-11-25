@@ -134,7 +134,7 @@ namespace Business_School_VF.Controllers
             var inscription = new Inscription
             {
                 StudentId = vm.StudentId,
-                ClubId = vm.ClubId
+                ClubId = (int)vm.ClubId
             };
 
             _db.Inscriptions.Add(inscription);

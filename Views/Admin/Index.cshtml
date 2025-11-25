@@ -9,28 +9,33 @@
     <h2 class="text-center text-warning mb-4">Admin Panel - Add Persons</h2>
 
     <div class="row">
-       
+        <!-- Department Manager -->
         <div class="col-md-4 mb-4">
             <div class="card shadow-lg bg-dark text-light h-100">
                 <div class="card-header border-bottom border-warning">
                     <h5 class="text-warning">Add Department Manager</h5>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Admin" asp-action="CreateDepartmentManager" method="post">
+                    <form asp-controller="Admin" asp-action="CreateDepartmentManager" method="post" id="DepartmentManagerForm" novalidate>
                         <div class="mb-3">
-                            <label asp-for="Person.PersonName" class="form-label text-light"></label>
-                            <input asp-for="Person.PersonName" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Enter manager name" required />
+                            <label asp-for="DepartmentManager.PersonName" class="form-label text-light"></label>
+                            <input asp-for="DepartmentManager.PersonName" class="form-control bg-dark text-light border-warning"
+                                   placeholder="Enter manager name" />
+                            <span asp-validation-for="DepartmentManager.PersonName" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="DepartmentManager.PersonName"></div>
                         </div>
                         <div class="mb-3">
-                            <label asp-for="Person.Birthday" class="form-label text-light"></label>
-                            <input asp-for="Person.Birthday" type="date" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Select birthday" required />
+                            <label asp-for="DepartmentManager.Birthday" class="form-label text-light"></label>
+                            <input asp-for="DepartmentManager.Birthday" type="date" class="form-control bg-dark text-light border-warning" />
+                            <span asp-validation-for="DepartmentManager.Birthday" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="DepartmentManager.Birthday"></div>
                         </div>
                         <div class="mb-3">
-                            <label asp-for="Person.PersonUser" class="form-label text-light"></label>
-                            <input asp-for="Person.PersonUser" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Enter email/username" required />
+                            <label asp-for="DepartmentManager.PersonUser" class="form-label text-light"></label>
+                            <input asp-for="DepartmentManager.PersonUser" class="form-control bg-dark text-light border-warning"
+                                   placeholder="Enter email/username" />
+                            <span asp-validation-for="DepartmentManager.PersonUser" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="DepartmentManager.PersonUser"></div>
                         </div>
                         <button type="submit" class="btn btn-admin w-100">Register Manager</button>
                     </form>
@@ -38,28 +43,33 @@
             </div>
         </div>
 
-        
+        <!-- Club Leader -->
         <div class="col-md-4 mb-4">
             <div class="card shadow-lg bg-dark text-light h-100">
                 <div class="card-header border-bottom border-warning">
                     <h5 class="text-warning">Add Club Leader</h5>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Admin" asp-action="CreateClubLeader" method="post">
+                    <form asp-controller="Admin" asp-action="CreateClubLeader" method="post" id="ClubLeaderForm" novalidate>
                         <div class="mb-3">
-                            <label asp-for="Person.PersonName" class="form-label text-light"></label>
-                            <input asp-for="Person.PersonName" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Enter leader name" required />
+                            <label asp-for="ClubLeader.PersonName" class="form-label text-light"></label>
+                            <input asp-for="ClubLeader.PersonName" class="form-control bg-dark text-light border-warning"
+                                   placeholder="Enter leader name" />
+                            <span asp-validation-for="ClubLeader.PersonName" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="ClubLeader.PersonName"></div>
                         </div>
                         <div class="mb-3">
-                            <label asp-for="Person.Birthday" class="form-label text-light"></label>
-                            <input asp-for="Person.Birthday" type="date" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Select birthday" required />
+                            <label asp-for="ClubLeader.Birthday" class="form-label text-light"></label>
+                            <input asp-for="ClubLeader.Birthday" type="date" class="form-control bg-dark text-light border-warning" />
+                            <span asp-validation-for="ClubLeader.Birthday" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="ClubLeader.Birthday"></div>
                         </div>
                         <div class="mb-3">
-                            <label asp-for="Person.PersonUser" class="form-label text-light"></label>
-                            <input asp-for="Person.PersonUser" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Enter email/username" required />
+                            <label asp-for="ClubLeader.PersonUser" class="form-label text-light"></label>
+                            <input asp-for="ClubLeader.PersonUser" class="form-control bg-dark text-light border-warning"
+                                   placeholder="Enter email/username" />
+                            <span asp-validation-for="ClubLeader.PersonUser" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="ClubLeader.PersonUser"></div>
                         </div>
                         <button type="submit" class="btn btn-admin w-100">Register Leader</button>
                     </form>
@@ -67,28 +77,33 @@
             </div>
         </div>
 
-        
+        <!-- Student -->
         <div class="col-md-4 mb-4">
             <div class="card shadow-lg bg-dark text-light h-100">
                 <div class="card-header border-bottom border-warning">
                     <h5 class="text-warning">Add Student</h5>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Admin" asp-action="CreateStudent" method="post">
+                    <form asp-controller="Admin" asp-action="CreateStudent" method="post" id="StudentForm" novalidate>
                         <div class="mb-3">
                             <label asp-for="Student.StudentName" class="form-label text-light"></label>
                             <input asp-for="Student.StudentName" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Enter student name" required />
+                                   placeholder="Enter student name" />
+                            <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="Student.StudentName"></div>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Student.Birthday" class="form-label text-light"></label>
-                            <input asp-for="Student.Birthday" type="date" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Select birthday" required />
+                            <input asp-for="Student.Birthday" type="date" class="form-control bg-dark text-light border-warning" />
+                            <span asp-validation-for="Student.Birthday" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="Student.Birthday"></div>
                         </div>
                         <div class="mb-3">
                             <label asp-for="Student.StudentUser" class="form-label text-light"></label>
                             <input asp-for="Student.StudentUser" class="form-control bg-dark text-light border-warning"
-                                   placeholder="Enter email/username" required />
+                                   placeholder="Enter email/username" />
+                            <span asp-validation-for="Student.StudentUser" class="text-danger"></span>
+                            <div class="invalid-feedback" data-valmsg-for="Student.StudentUser"></div>
                         </div>
                         <button type="submit" class="btn btn-admin w-100">Register Student</button>
                     </form>
@@ -104,3 +119,6 @@
         </div>
     }
 </div>
+
+    <script src="~/js/AdminValidations.js"></script>
+
